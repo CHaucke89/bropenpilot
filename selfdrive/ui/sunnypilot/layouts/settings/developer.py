@@ -20,6 +20,7 @@ from openpilot.system.ui.widgets.list_view import button_item
 
 from openpilot.system.ui.sunnypilot.widgets.html_render import HtmlModalSP
 from openpilot.system.ui.sunnypilot.widgets.list_view import toggle_item_sp
+from openpilot.sunnypilot.system.konik_api import swap_dongle_for_konik
 
 PREBUILT_PATH = os.path.join(Paths.comma_home(), "prebuilt") if PC else "/data/openpilot/prebuilt"
 
@@ -82,6 +83,15 @@ class DeveloperLayoutSP(DeveloperLayout):
       except Exception:
         pass
     dialog = HtmlModalSP(text=text, callback=lambda result: self._on_error_log_closed(result, os.path.exists(self.error_log_path)))
+    gui_app.push_widget(dialog)
+
+  def _on_konik_reboot_confirm(self, result):
+    if result == DialogResult.CONFIRM:
+      swap_dongle_for_konik(ui_state.params.get_bool("KonikApi"), ui_state.params)
+      ui_state.params.put_bool("DoReboot", True)
+
+  def _on_konik_toggled(self, result):
+    dialog = ConfirmDialog(tr("Reboot required for changes to take effect. Reboot now?"), tr("Reboot"), callback=self._on_konik_reboot_confirm)
     gui_app.push_widget(dialog)
 
   def _update_state(self):

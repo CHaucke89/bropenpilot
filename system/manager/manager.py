@@ -23,6 +23,7 @@ from openpilot.system.hardware.hw import Paths
 from openpilot.system.hardware import PC
 
 from openpilot.sunnypilot.system.params_migration import run_migration
+from openpilot.sunnypilot.system.konik_api import apply_konik_env
 
 
 def manager_init() -> None:
@@ -31,6 +32,7 @@ def manager_init() -> None:
   build_metadata = get_build_metadata()
 
   params = Params()
+  apply_konik_env(params) # Override environment variables during manager init if using Konik's API
   params.clear_all(ParamKeyFlag.CLEAR_ON_MANAGER_START)
   params.clear_all(ParamKeyFlag.CLEAR_ON_ONROAD_TRANSITION)
   params.clear_all(ParamKeyFlag.CLEAR_ON_OFFROAD_TRANSITION)
