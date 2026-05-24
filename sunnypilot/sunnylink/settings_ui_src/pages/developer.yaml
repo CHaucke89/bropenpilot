@@ -135,3 +135,9 @@ sections:
       key: DisableUpdates
       equals: true
     - $ref: '#/macros/advanced_only'
+  - key: KonikApi
+    widget: toggle
+    title: Use Konik API
+    description: Use stable.konik.ai for uploads instead of comma connect
+    enablement:
+    - $ref: '#/macros/advanced_only'

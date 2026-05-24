@@ -1923,6 +1923,19 @@
                   "equals": true
                 }
               ]
+            },
+            {
+              "key": "KonikApi",
+              "widget": "toggle",
+              "title": "Use Konik API",
+              "description": "Use stable.konik.ai for uploads instead of comma connect",
+              "enablement": [
+                {
+                  "type": "param",
+                  "key": "ShowAdvancedControls",
+                  "equals": true
+                }
+              ]
             }
           ]
         }
