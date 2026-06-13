@@ -24,6 +24,8 @@ sections:
     widget: toggle
     title: Steering Arc Fade Overlay
     description: Enable or disable the steering arc fade overlay.
+    enablement:
+    - $ref: '#/macros/torque_bar'
   - key: ShowTurnSignals
     widget: toggle
     title: Display Turn Signals
