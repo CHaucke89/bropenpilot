@@ -10,6 +10,8 @@ from openpilot.common.swaglog import cloudlog
 from openpilot.selfdrive.modeld.constants import index_function
 from openpilot.selfdrive.controls.radard import _LEAD_ACCEL_TAU
 
+from openpilot.sunnypilot.selfdrive.controls.lib.longitudinal_mpc_lib.long_mpc_ext import LongitudinalMpcExt
+
 if __name__ == '__main__':  # generating code
   from acados.acados_template import AcadosModel, AcadosOcp, AcadosOcpSolver
 else:
