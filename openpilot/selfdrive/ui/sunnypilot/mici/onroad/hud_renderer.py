@@ -8,19 +8,28 @@ import pyray as rl
 
 from openpilot.selfdrive.ui.mici.onroad.hud_renderer import HudRenderer
 from openpilot.selfdrive.ui.sunnypilot.onroad.blind_spot_indicators import BlindSpotIndicators
+from openpilot.selfdrive.ui.sunnypilot.ui_state import UIStateSP
 
 
 class HudRendererSP(HudRenderer):
   def __init__(self):
     super().__init__()
     self.blind_spot_indicators = BlindSpotIndicators()
+    self.ui_state = UIStateSP()
 
   def _update_state(self) -> None:
     super()._update_state()
     self.blind_spot_indicators.update()
 
   def _render(self, rect: rl.Rectangle) -> None:
-    super()._render(rect)
+    if self.ui_state.torque_bar:
+      self._torque_bar.render(rect)
+
+    if self.is_cruise_set:
+      self._draw_set_speed(rect)
+
+    self._draw_steering_wheel(rect)
+
     self.blind_spot_indicators.render(rect)
 
   def _has_blind_spot_detected(self) -> bool:
